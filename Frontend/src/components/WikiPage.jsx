@@ -31,7 +31,7 @@ const WikiPage = () => {
    
 
   return (
-    <>
+    <div className='page-container'>
       {isLoading ? (
         <CircularProgress />
       ) : (
@@ -41,7 +41,7 @@ const WikiPage = () => {
           <Button variant='contained' onClick={backToPreviousPage}>⬅️ Back </Button>
         </Card>
       )}
-    </>
+    </div>
   );
   
 };

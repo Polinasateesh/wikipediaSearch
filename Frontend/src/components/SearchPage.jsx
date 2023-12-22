@@ -27,12 +27,10 @@ const SearchPage = () => {
   };
 
   return (
-    <>
-     
+    <div className="page-container">
       <section style={{ display: "flex", justifyContent: "center" }}>
         <h1 style={{ color: "#006400", fontSize: "43px" }}>Tiny Wiki</h1>
       </section>
-
       <Card className="card">
         <section className="search-bar">
           <TextField
@@ -65,7 +63,6 @@ const SearchPage = () => {
 
         <section>
           {isLoading && <CircularProgress style={{ marginTop: "20px" }} />}
-
           {isLoading === false && (
             <ul>
               {searchResults.length == 0 ? (
@@ -81,7 +78,7 @@ const SearchPage = () => {
           )}
         </section>
       </Card>
-    </>
+    </div>
   );
 };
 

@@ -10,7 +10,7 @@ const Dashboard = () => {
 
   useEffect(() => {
 
-    const jwtToken=window.localStorage.getItem('jwtToken')
+    const jwtToken = window.localStorage.getItem('jwtToken')
 
     axios
       .get("http://localhost:5000/api/wikipedia/dashboard", {
@@ -23,9 +23,11 @@ const Dashboard = () => {
   return (
     <>
       <h1>Dash Board</h1>
-      <div className="chart-container">
-        <BarChartComponent data={analyticsData} />
-        <PieChartComponent data={analyticsData} />
+      <div className='page-container'>
+        <div className="chart-container">
+          <BarChartComponent data={analyticsData} />
+          <PieChartComponent data={analyticsData} />
+        </div>
       </div>
     </>
   );

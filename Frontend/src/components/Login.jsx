@@ -77,7 +77,8 @@ const Login = () => {
     setUserInfo({ ...userInfo, showPassword: !userInfo.showPassword });
   };
 
-  const handleFormSubmit = async (event) => {
+    const handleFormSubmit = async (event) => {
+        setLoading(true)
     event.preventDefault();
     try {
       const userValues = {
@@ -93,9 +94,11 @@ const Login = () => {
         navigate("/wiki");
       } else {
         navigate("/wiki");
-      }
+        }
+        setLoading(false)
     } catch (error) {
-      console.log("Login Error", error);
+        console.log("Login Error", error);
+        setLoading(false)
     }
   };
 

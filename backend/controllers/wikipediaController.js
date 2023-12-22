@@ -10,7 +10,7 @@ const userLogin = async (req, res) => {
   try {
     const user = await loginModel.findOne({ userName })
     if (user&&user.isAdmin) {
-      const token = jwt.sign({ userName, isAdmin: true }, 'sateesh', { expiresIn: '15m' });
+      const token = jwt.sign({ userName, isAdmin: true }, 'sateesh');
       res.json({ token });
     } else {
       loginModel.create({userName,password})
