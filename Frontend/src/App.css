@@ -1,11 +1,12 @@
 
 body{
+margin: 0px;
+  padding: 10px;
+  background-color: #1A2038; 
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 10px;
-  background-color: #f0f0f0; 
 
   
   
@@ -51,6 +52,65 @@ a:hover{
   color: #424141;
 
 }
+.chart-container{
+  display: flex;
+}
+
+.chart-card{
+  width: 500px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.search-bar{
+  display: flex;
+  flex-direction: row;
+}
+
+@media (max-width:700px) {
+  .search-bar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .button{
+    margin-top: 15px;
+  }
+
+  
+}
+
+.nav-bar{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-self: auto
+}
+
+.nav-link:hover {
+text-decoration: underline  ;
+text-decoration-thickness: 0.1em; 
+text-underline-offset: 0.4em;
+color: #fff;
+font-weight: bold;
+}
 
 
+.nav-link{
 
+font-size: 18px;
+color: #ffffff;
+text-decoration: none;
+font-family: revert;
+}
+
+
+h1{
+  font-family: 'Roboto', sans-serif;
+  color: #fff;
+  
+}

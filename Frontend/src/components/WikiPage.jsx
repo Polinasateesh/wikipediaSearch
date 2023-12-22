@@ -10,7 +10,7 @@ const WikiPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     
     const backToPreviousPage = () => {
-        navigate('/')
+        navigate('/wiki')
         
     }
 
@@ -18,7 +18,6 @@ const WikiPage = () => {
     const fetchWikiPage = async () => {
       try {
           const response = await axios.get(`http://localhost:5000/api/wikipedia/read/${slug}`);
-          console.log('response',response)
           setHtmlContent(response.data);
           setIsLoading(false)
       } catch (error) {

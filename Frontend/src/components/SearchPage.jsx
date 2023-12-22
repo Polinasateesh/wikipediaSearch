@@ -11,6 +11,8 @@ const SearchPage = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+
+
   const handleSearch = async () => {
     setIsLoading(true);
     try {
@@ -26,12 +28,13 @@ const SearchPage = () => {
 
   return (
     <>
+     
       <section style={{ display: "flex", justifyContent: "center" }}>
         <h1 style={{ color: "#006400", fontSize: "43px" }}>Tiny Wiki</h1>
       </section>
 
       <Card className="card">
-        <section>
+        <section className="search-bar">
           <TextField
             variant="outlined"
             //   label="Search"
@@ -45,7 +48,6 @@ const SearchPage = () => {
                     marginLeft: 1,
                     marginRight: 1,
                     color: "action.active"
-                    // fontSize: "inherit"
                   }}
                 />
               )
@@ -55,6 +57,7 @@ const SearchPage = () => {
           <Button
             variant="contained"
             onClick={handleSearch}
+            className="button"
           >
             Search
           </Button>
@@ -65,11 +68,15 @@ const SearchPage = () => {
 
           {isLoading === false && (
             <ul>
-              {searchResults.map((result) => (
-                <li key={result.pageid}>
-                  <a href={`/wiki/${result.title}`}>{result.title} </a>
-                </li>
-              ))}
+              {searchResults.length == 0 ? (
+                <p>No Data Availble</p>
+              ) : (
+                searchResults.map((result) => (
+                  <li key={result.pageid}>
+                    <a href={`/wiki/${result.title}`}>{result.title} </a>
+                  </li>
+                ))
+              )}
             </ul>
           )}
         </section>

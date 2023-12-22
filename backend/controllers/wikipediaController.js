@@ -1,5 +1,28 @@
 const axios = require('axios');
-const searchModel=require('../model/searchModel')
+const searchModel = require('../model/searchModel')
+const loginModel = require('../model/loginModel')
+const jwt =require('jsonwebtoken')
+
+
+const userLogin = async (req, res) => {
+ 
+  const { userName, password } = req.body
+  try {
+    const user = await loginModel.findOne({ userName })
+    if (user&&user.isAdmin) {
+      const token = jwt.sign({ userName, isAdmin: true }, 'sateesh', { expiresIn: '15m' });
+      res.json({ token });
+    } else {
+      res.json({message:'login success'});
+    }
+
+    
+  } catch (error) {
+    console.log('Error', error)
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+  
+}
 
 const searchWikipedia = async (req, res) => {
     const { searchTerm } = req.params;
@@ -11,14 +34,15 @@ const searchWikipedia = async (req, res) => {
           list: 'search',
           format: 'json',
           srsearch: searchTerm,
-        },
+        }, family: 4 
       });
   
         const searchResults = response.data.query.search;
          await searchModel.create({ searchkeyword: searchTerm });
       res.json(searchResults);
     } catch (error) {
-      console.error(error);
+        console.error(error);
+        
       res.status(500).json({ error: 'Internal Server Error' });
     }
   };
@@ -34,7 +58,7 @@ const readWikipedia = async (req, res) => {
         prop: 'extracts',
         exintro: true,
         titles: slug,
-      },
+      } ,family: 4 ,
     });
 
     const page = Object.values(response.data.query.pages)[0];
@@ -42,7 +66,6 @@ const readWikipedia = async (req, res) => {
       title: page.title,
       htmlContent: page.extract,
       };
-      console.log("result",result);
 
     res.json(result);
   } catch (error) {
@@ -52,11 +75,21 @@ const readWikipedia = async (req, res) => {
 };
 
 const dashboard = async (req, res) => {
-  
     try {
-        const result= await searchModel.find()
-        res.json(result)
-      
+      const result = await searchModel.aggregate([
+        {
+          $group: {
+            _id: '$searchkeyword',
+            count: { $sum: 1 },
+            timestamps: { $push: '$timestamp' }, 
+          },
+        },
+        {
+          $sort: { count: -1 } // Sort by count in descending order
+        },
+      ]);
+  
+      res.json(result);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
@@ -65,6 +98,7 @@ const dashboard = async (req, res) => {
 
 module.exports = {
   searchWikipedia,
-    readWikipedia,
-    dashboard
+  readWikipedia,
+  dashboard,
+  userLogin
 };
