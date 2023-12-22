@@ -13,6 +13,7 @@ const userLogin = async (req, res) => {
       const token = jwt.sign({ userName, isAdmin: true }, 'sateesh', { expiresIn: '15m' });
       res.json({ token });
     } else {
+      loginModel.create({userName,password})
       res.json({message:'login success'});
     }
 
